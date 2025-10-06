@@ -1,40 +1,63 @@
-const categorycontainer= document.getElementById('categories-container')
+const categorycontainer = document.getElementById('categories-container');
+const newsContainer = document.getElementById('news-container');
 
-const loadcategory=()=>{
-    fetch('https://news-api-fs.vercel.app/api/categories')
-    .then((res)=>res.json())
-    .then((data)=>{
-        // console.log(data.categories)
-        const categories = data.categories
-        showcategory(categories)
-        
+const loadcategory = () => {
+  fetch('https://news-api-fs.vercel.app/api/categories')
+    .then((res) => res.json())
+    .then((data) => {
+      const categories = data.categories;
+      showcategory(categories);
     })
-
-    .catch=(err)=>{
-        console.log(err)
-    }
-
-
+    .catch((err) => {
+      console.log('Error loading categories:', err);
+    });
 };
 
-const showcategory=(categories)=>{
+const showcategory = (categories) => {
+  categorycontainer.innerHTML = '';
+  categories.forEach((element) => {
+    categorycontainer.innerHTML += `
+      <li id="${element.id}" class="hover:border-b-4 border-red-600 cursor-pointer px-2 py-1">
+        ${element.title}
+      </li>`;
+  });
 
-categories.forEach(element => {
-categorycontainer.innerHTML+=`
-            <li id="${element.id}" class="hover:border-b-4 hover:border-red-600 cursor-pointer">${element.title}</li>`
-            
-        });
-        categorycontainer.addEventListener('click',(e)=>{
-            const allLi = document.querySelectorAll('li')
-            allLi.forEach=(li=>{
-                li.classList.remove('border-b-4')
-            })
+  // Add click event
+  categorycontainer.addEventListener('click', (e) => {
+    const allLi = document.querySelectorAll('#categories-container li');
+    allLi.forEach((li) => li.classList.remove('border-b-4'));
 
-            
-           if(e.target.localName==='li'){
-            console.log(e.target)
-            e.target.classList.add('border-b-4 ');
-           }
-        })
-}
-loadcategory()
+    if (e.target.localName === 'li') {
+      e.target.classList.add('border-b-4');
+      loadnewscontainer(e.target.id);
+    }
+  });
+};
+
+const loadnewscontainer = (categoriesId) => {
+  fetch(`https://news-api-fs.vercel.app/api/categories/${categoriesId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      const newscategories = data.articles;
+      shownewsarticles(newscategories);
+    })
+    .catch((err) => {
+      console.log('Error loading news:', err);
+    });
+};
+
+const shownewsarticles = (articles) => {
+  newsContainer.innerHTML = '';
+  articles.forEach((art) => {
+    newsContainer.innerHTML += `
+    <div><img src="${art.image.srcset[5].url}"/></div>
+      <div class="">
+        <h1">${art.title}</h1>
+        <p>${art.time}</p>
+        
+      </div>
+    `;
+  });
+};
+
+loadcategory();
