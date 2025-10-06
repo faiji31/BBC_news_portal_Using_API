@@ -24,5 +24,17 @@ categorycontainer.innerHTML+=`
             <li id="${element.id}" class="hover:border-b-4 hover:border-red-600 cursor-pointer">${element.title}</li>`
             
         });
+        categorycontainer.addEventListener('click',(e)=>{
+            const allLi = document.querySelectorAll('li')
+            allLi.forEach=(li=>{
+                li.classList.remove('border-b-4')
+            })
+
+            
+           if(e.target.localName==='li'){
+            console.log(e.target)
+            e.target.classList.add('border-b-4 ');
+           }
+        })
 }
 loadcategory()
