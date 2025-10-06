@@ -50,14 +50,18 @@ const shownewsarticles = (articles) => {
   newsContainer.innerHTML = '';
   articles.forEach((art) => {
     newsContainer.innerHTML += `
+    <div class="border border-gray-300 rounded-lg">
     <div><img src="${art.image.srcset[5].url}"/></div>
-      <div class="">
+      <div class="p-2">
         <h1">${art.title}</h1>
-        <p>${art.time}</p>
+        <p class="text-[12px">${art.time}</p>
         
       </div>
+      </div>
+      
     `;
   });
 };
 
 loadcategory();
+loadnewscontainer('main')
