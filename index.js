@@ -55,6 +55,7 @@ const shownewsarticles = (articles) => {
       <div class="p-2">
         <h1">${art.title}</h1>
         <p class="text-[12px">${art.time}</p>
+        <button class="btn">Bookmark</button>
         
       </div>
       </div>
