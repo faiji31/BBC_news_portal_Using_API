@@ -1,5 +1,6 @@
 const categorycontainer = document.getElementById('categories-container');
 const newsContainer = document.getElementById('news-container');
+const bookmarContainer = document.getElementById("Bookmark-container")
 
 const loadcategory = () => {
   fetch('https://news-api-fs.vercel.app/api/categories')
@@ -53,7 +54,7 @@ const shownewsarticles = (articles) => {
     <div class="border border-gray-300 rounded-lg">
     <div><img src="${art.image.srcset[5].url}"/></div>
       <div class="p-2">
-        <h1">${art.title}</h1>
+        <h1>${art.title}</h1>
         <p class="text-[12px">${art.time}</p>
         <button class="btn">Bookmark</button>
         
@@ -63,6 +64,13 @@ const shownewsarticles = (articles) => {
     `;
   });
 };
+newsContainer.addEventListener('click',(e)=>{
+    console.log(e.target)
+    if(e.target.innerText ==="Bookmark"){
+       
+        console.log(e.target.parentNode.children[0].innerText)
+    }
+})
 
 loadcategory();
 loadnewscontainer('main')
