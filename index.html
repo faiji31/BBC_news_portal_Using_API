@@ -3,68 +3,121 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Daisy Ui and Tailwind css -->
+
+    <!-- DaisyUI & Tailwind CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      href="https://cdn.jsdelivr.net/npm/daisyui@5/dist/full.css"
       rel="stylesheet"
       type="text/css"
     />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- google font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&family=Poppins:wght@400;600&display=swap"
       rel="stylesheet"
     />
+
     <title>BBC Bangla | Online News Portal</title>
+
+    <style>
+      body {
+        font-family: 'Hind Siliguri', sans-serif;
+      }
+    </style>
   </head>
-  <body class="font-bangla">
-   <header>
-    <div class="bg-red-700 py-5">
-        <div class="max-w-7xl mx-auto px-5">
-            <img class="invert" src="assets/logo.svg" alt="">
+
+  <body class="bg-gray-50">
+    <!-- ===== Header ===== -->
+    <header class="shadow-sm">
+      <!-- Logo Bar -->
+      <div class="bg-red-700 py-4">
+        <div
+          class="max-w-7xl mx-auto px-4 flex items-center justify-between text-white"
+        >
+          <img src="assets/logo.svg" alt="BBC Logo" class="invert w-28 md:w-36" />
+          <button
+            id="menu-toggle"
+            class="md:hidden bg-white/20 px-3 py-2 rounded text-sm font-semibold hover:bg-white/30"
+          >
+            ☰ Menu
+          </button>
         </div>
-    </div>
-    <nav class="border-b border-gray-200">
-        <ul id="categories-container" class="flex gap-10 text-lg max-w-7xl px-5 mx-auto ">
-           
-            
-           
-        </ul>
-    </nav>
-   </header>
-
-   <main class=" gap-10 text-lg max-w-7xl px-5 mx-auto grid grid-cols-4">
-    <div id="news-container" class="grid grid-cols-3 gap-5 col-span-3">
-
-    </div>
-    <div id="Bookmark-container" class="col-span-1 border-3 border-gray-200 overflow-hidden">
-      <h1 class="bg-red-500 text-white p-3">Bookmark</h1>
-      <div id="Bookmark-container"  >
-        
       </div>
 
-    </div>
+      <!-- Category Navigation -->
+      <nav
+        class="border-b border-gray-300 bg-white"
+      >
+        <ul
+          id="categories-container"
+          class="flex flex-wrap md:flex-nowrap gap-4 text-sm md:text-lg max-w-7xl px-4 mx-auto overflow-x-auto no-scrollbar py-2"
+        >
+          <!-- Categories will load here -->
+        </ul>
+      </nav>
+    </header>
 
+    <!-- ===== Main Content ===== -->
+    <main
+      class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-4 gap-6"
+    >
+      <!-- News Section -->
+      <section
+        id="news-container"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:col-span-3"
+      >
+        <!-- News articles will appear here -->
+      </section>
 
-   </main>
-   <!-- Open the modal using ID.showModal() method -->
+      <!-- Bookmark Section -->
+      <aside
+        class="border border-gray-200 rounded-lg overflow-hidden md:col-span-1"
+      >
+        <h2 class="bg-red-600 text-white text-lg font-semibold px-4 py-2">
+          📑 Bookmarks
+        </h2>
+        <div
+          id="Bookmark-container"
+          class="p-3 space-y-2 max-h-[70vh] overflow-y-auto"
+        >
+          <!-- Bookmarks will appear here -->
+        </div>
+      </aside>
+    </main>
 
-<dialog id="news-details-modal" class="modal">
-  <div class="modal-box">
-    <div id="modal-conatiner">
+    <!-- ===== Modal Section ===== -->
+    <dialog id="news-details-modal" class="modal">
+      <div class="modal-box max-w-lg">
+        <div id="modal-container" class="space-y-3">
+          <!-- Modal Content Will Load Here -->
+        </div>
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn bg-red-600 text-white hover:bg-red-700">
+              Close
+            </button>
+          </form>
+        </div>
+      </div>
+    </dialog>
 
-    </div>
-    <div class="modal-action">
-      <form method="dialog">
-        <!-- if there is a button in form, it will close the modal -->
-        <button class="btn">Close</button>
-      </form>
-    </div>
-  </div>
-</dialog>
-   <script src="index.js"></script>
+    <!-- ===== JS File ===== -->
+    <script src="index.js"></script>
+
+    <!-- ===== Mobile Menu Toggle ===== -->
+    <script>
+      const menuToggle = document.getElementById('menu-toggle');
+      const categoryContainer = document.getElementById('categories-container');
+
+      menuToggle?.addEventListener('click', () => {
+        categoryContainer.classList.toggle('hidden');
+        categoryContainer.classList.toggle('flex');
+        categoryContainer.classList.toggle('flex-col');
+        categoryContainer.classList.toggle('bg-white');
+        categoryContainer.classList.toggle('p-4');
+        categoryContainer.classList.toggle('shadow-md');
+      });
+    </script>
   </body>
 </html>
