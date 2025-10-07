@@ -78,10 +78,10 @@ const handlebookmars=(e)=>{
             title:title,
             id:id
         })
-        showbookmars(bookmarks)
+        showbookmarks(bookmarks)
 
 }
-const showbookmars=(bookmarks)=>{
+const showbookmarks=(bookmarks)=>{
     bookmarkContainer.innerHTML=""
     bookmarks.forEach((bookmark)=>{
     bookmarkContainer.innerHTML+=`
@@ -100,9 +100,12 @@ const showbookmars=(bookmarks)=>{
 
 }
 
-const handledeletebookark=(bookmarkId)=>{
+const handledeletebookark = (bookmarkId) => {
+  const filteredBookmarks = bookmarks.filter(bookmark => bookmark.id !== bookmarkId);
+  bookmarks = filteredBookmarks; // update global array
+  showbookmarks(bookmarks);      // re-render updated list
+};
 
-}
 
 loadcategory();
 loadnewscontainer('main')
