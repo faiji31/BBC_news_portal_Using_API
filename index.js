@@ -1,6 +1,7 @@
 const categorycontainer = document.getElementById('categories-container');
 const newsContainer = document.getElementById('news-container');
-const bookmarContainer = document.getElementById("Bookmark-container")
+const bookmarkContainer = document.getElementById("Bookmark-container")
+let bookmarks =[]
 
 const loadcategory = () => {
   fetch('https://news-api-fs.vercel.app/api/categories')
@@ -53,7 +54,7 @@ const shownewsarticles = (articles) => {
     newsContainer.innerHTML += `
     <div class="border border-gray-300 rounded-lg">
     <div><img src="${art.image.srcset[5].url}"/></div>
-      <div class="p-2">
+      <div id="${art.id}" class="p-2">
         <h1>${art.title}</h1>
         <p class="text-[12px">${art.time}</p>
         <button class="btn">Bookmark</button>
@@ -67,10 +68,41 @@ const shownewsarticles = (articles) => {
 newsContainer.addEventListener('click',(e)=>{
     console.log(e.target)
     if(e.target.innerText ==="Bookmark"){
-       
-        console.log(e.target.parentNode.children[0].innerText)
+       handlebookmars(e)
     }
 })
+const handlebookmars=(e)=>{
+    const title = e.target.parentNode.children[0].innerText;
+        const id = e.target.parentNode.id
+        bookmarks.push({
+            title:title,
+            id:id
+        })
+        showbookmars(bookmarks)
+
+}
+const showbookmars=(bookmarks)=>{
+    bookmarkContainer.innerHTML=""
+    bookmarks.forEach((bookmark)=>{
+    bookmarkContainer.innerHTML+=`
+    <div class="border my-2 p-1">
+    <h1>${bookmark.title}</h1>
+    <button  onclick="handledeletebookark('${bookmark.id})" class="btn btn-xs">Delete</button>
+    
+    
+    
+    </div>
+    `
+        
+    })
+    
+
+
+}
+
+const handledeletebookark=(bookmarkId)=>{
+
+}
 
 loadcategory();
 loadnewscontainer('main')
